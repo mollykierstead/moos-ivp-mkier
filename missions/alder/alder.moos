@@ -20,7 +20,7 @@ ProcessConfig = ANTLER
   Run = pMarineViewer	@ NewConsole = false
   Run = uProcessWatch @ NewConsole = false
   Run = pHelmIvP      @ NewConsole = false
-  //Run = pOdometry     @ NewConsole = false
+  Run = pOdometry     @ NewConsole = false
 }
 
 //------------------------------------------
@@ -31,7 +31,7 @@ ProcessConfig = uSimMarineV22
   AppTick	  = 10
   CommsTick	= 10
 
-  START_X       = 0
+  START_X       = 30
   START_Y       = 0
   START_SPEED   = 0
   START_HEADING = 180
@@ -124,7 +124,7 @@ ProcessConfig = pMarineViewer
   hash_shade           = 0.4
   hash_viewable        = true
 
-  scope = ODOMETRY_DIST
+  scope = ODOMETRY_DISTANCE
 
    // Appcast configuration
   appcast_height       = 75
@@ -149,4 +149,13 @@ ProcessConfig = pNodeReporter
   CommsTick	= 2
 
   vessel_type = kayak
+}
+
+//------------------------------------------
+// pOdometry config block
+
+ProcessConfig = pOdometry
+{
+  AppTick	  = 2
+  CommsTick	= 2
 }
