@@ -2,7 +2,7 @@
 /*    NAME: Molly Kierstead                                              */
 /*    ORGN: MIT, Cambridge MA                               */
 /*    FILE: Odometry.cpp                                        */
-/*    DATE: December 29th, 1963                             */
+/*    DATE: December 9th, 1963                             */
 /************************************************************/
 
 #include <iterator>
@@ -27,6 +27,7 @@ Odometry::Odometry()
   m_new_y = false;
   m_depth=0;
   m_depth_thresh=0;
+  distance_at_depth = 0;
 }
 
 //---------------------------------------------------------
@@ -71,6 +72,7 @@ bool Odometry::OnNewMail(MOOSMSG_LIST &NewMail)
     }
 
     else if (key == "NAV_DEPTH")
+
     {
       m_depth = msg.GetDouble();
     }
@@ -111,17 +113,24 @@ bool Odometry::Iterate()
 
   else if (m_first_reading && m_new_x && m_new_y)
   {
-    if (m_depth > m_depth_thresh)
-    {
       double dist_x = m_current_x - m_previous_x;
       double dist_y = m_current_y - m_previous_y;
-      m_total_distance += sqrt(pow(dist_x, 2) + pow(dist_y, 2));
-    }
+     // m_total_distance += sqrt(pow(dist_x, 2) + pow(dist_y, 2));
+
+      double m_distance_step = sqrt(pow(dist_x, 2) + pow(dist_y, 2));
+      m_total_distance += m_distance_step;
+
+      if (m_depth>m_depth_thresh)
+      {
+        distance_at_depth += m_distance_step;
+      }
+
     m_previous_x = m_current_x;
     m_previous_y = m_current_y;
 
 
     Notify("ODOMETRY_DISTANCE", m_total_distance);
+    Notify ("ODOMETRY_DIST_AT_DEPTH" , distance_at_depth);
   }
 
 
@@ -151,11 +160,12 @@ bool Odometry::OnStartUp()
     string value = line;
 
     bool handled = false;
+    cout << param << endl;
     if (param == "depth_thresh")
     {
-      handled = true;
-
-      m_depth_thresh = stod(value);
+      handled = setDoubleOnString(m_depth_thresh,value);
+      cout << "Made it here" << endl;
+    //m_depth_thresh = stod(value);
     }
     else if (param == "bar")
     {
@@ -197,6 +207,7 @@ bool Odometry::buildReport()
   actab << "one" << "two" << "three" << "four";
   m_msgs << actab.getFormattedString();
   m_msgs << endl;
-  m_msgs << "DISTANCE TRAVELED " << doubleToString(m_total_distance);
+  m_msgs << "DISTANCE TRAVELED " << doubleToString(m_total_distance) << endl;
+  m_msgs << "DISTANCE TRAVELED AT DEPTH " <<doubleToString(distance_at_depth) << endl;
   return (true);
 }
