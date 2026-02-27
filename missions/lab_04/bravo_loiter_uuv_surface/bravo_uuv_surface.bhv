@@ -105,24 +105,24 @@ Behavior = BHV_Loiter
  }
 
 //----------------------------------------------
+
 Behavior=BHV_Waypoint
 {
   name      = waypt_return
   pwt       = 100
-  condition = RETURN = true
+  // condition = RETURN = true
   condition = DEPLOY = true
-  //condition  = (RETURN = true) or (ODOMETRY_DISTANCE >= 200) /Assignment 8
+  condition = (RETURN=true) or (ODOMETRY_DIST_AT_DEPTH>=200) 
   perpetual = true
   updates   = RETURN_UPDATE
-  endflag   = RETURN = false
-  endflag   = DEPLOY = false
-  endflag   = MISSION = complete
-	
-           speed = 2.0
+  endflag   = RETURN=false
+  endflag   = DEPLOY=false
+  endflag   = MISSION=complete
+  speed = 2.0
   capture_radius = 2.0
-     slip_radius = 8.0
-          points = 0,-20
- }
+  slip_radius = 8.0
+  points = 0,-20
+}
 
 //----------------------------------------------
 
@@ -170,7 +170,7 @@ Behavior=BHV_Waypoint
           summitdelta = 50           // default
  }
 
- Behavior = BHV_Timer
+Behavior = BHV_Timer
  {
    // General Behavior Parameters
    // ---------------------------
@@ -180,8 +180,26 @@ Behavior=BHV_Waypoint
    condition = SURFACE = false
    perpetual = true
    endflag = SURFACE = true
-   endflag = SURF_RESET = true
+  //  endflag = SURF_RESET = true
+   duration_idle_decay   = false
  }
+
+Behavior = BHV_Timer
+ {
+   // General Behavior Parameters
+   // ---------------------------
+   name         = bhv_timer_at_surface           // default
+   // condition    = WAIT_REQUEST=true    // example
+   duration     = 60                  // exampl
+  //  condition = NAV_DEPTH > 0
+   condition = SURFACED = true
+   perpetual = true
+   endflag = SURFACE = false
+   endflag = SURFACED = false
+   duration_idle_decay   = false
+   //endflag = SURF_RESET = true
+ }
+ 
  
  Behavior = BHV_ConstantDepth
  {
@@ -194,7 +212,7 @@ Behavior=BHV_Waypoint
    // condition    = LOITER_REGION=west
    duration_reset = SURF_RESET=true
    updates      = CONST_DEP_UPDATES  // example
-   endflag      = SURFACE=false
+   endflag      = SURFACED=true
    perpetual    = true
 
    // Parameters specific to this behavior
@@ -202,7 +220,8 @@ Behavior=BHV_Waypoint
             basewidth = 100          // default
                 depth = 0           // default
    depth_mismatch_var = DEPTH_DIFF   // example
-             duration = 60           // default (Choose something higher!)
+             duration = no-time-limit          
+             duration_idle_decay = false
             peakwidth = 3            // default
           summitdelta = 50           // default
  }
