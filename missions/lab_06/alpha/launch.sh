@@ -7,7 +7,7 @@
 #  Part 1: Set Exit actions and declare global var defaults
 #----------------------------------------------------------
 TIME_WARP=1
-COMMUNITY="alpha"
+COMMUNITY="alpha" 
 GUI="yes"
 
 #----------------------------------------------------------
@@ -32,8 +32,11 @@ done
 #----------------------------------------------------------
 #  Part 3: Launch the processes
 #----------------------------------------------------------
-echo "Launching $COMMUNITY MOOS Community with WARP:" $TIME_WARP
-pAntler $COMMUNITY.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
-
-uMAC -t $COMMUNITY.moos
+echo "Launching alpha MOOS Community with WARP:" $TIME_WARP
+pAntler alpha.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
+echo "Launching bravo MOOS Community with WARP:" $TIME_WARP
+pAntler bravo.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
+echo "Launching shore MOOS Community with WARP:" $TIME_WARP
+pAntler shore.moos --MOOSTimeWarp=$TIME_WARP >& /dev/null &
+uMAC -t shore.moos
 kill -- -$$
