@@ -1,0 +1,61 @@
+ServerHost = localhost
+ServerPort = $(VPORT)
+
+// Community name IS the vehicle name
+Community  = $(VNAME)
+
+#include plug_origin_warp.moos
+  
+//------------------------------------------------------------
+Processconfig = ANTLER
+{
+  MSBetweenLaunches = 200
+   
+  Run = MOOSDB          @ NewConsole = false
+  Run = pRealm          @ NewConsole = false
+  Run = uSimMarine      @ NewConsole = false
+  Run = pLogger         @ NewConsole = false
+  Run = pNodeReporter   @ NewConsole = false
+  Run = pMarinePID      @ NewConsole = false
+  Run = pHelmIvP        @ NewConsole = false
+  Run = uProcessWatch   @ NewConsole = false
+  Run = pShare          @ NewConsole = false
+  Run = pHostInfo       @ NewConsole = false
+  Run = uFldNodeBroker  @ NewConsole = false
+  Run = pRealm          @ NewConsole = false
+  Run = pGenPath        @ NewConsole = false
+}
+ 
+#include plug_uSimMarine.moos
+#include plug_pLogger.moos
+#include plug_pNodeReporter.moos
+#include plug_pMarinePID.moos
+#include plug_pHelmIvP.moos
+#include plug_uProcessWatch.moos
+#include plug_pShare.moos
+#include plug_pHostInfo.moos
+#include plug_uFldNodeBroker.moos
+
+//--------------------------------------------------
+// pRealm Configuration Block    
+
+ProcessConfig = pRealm
+ {                                                               
+   AppTick   = 4                                                 
+   CommsTick = 4  
+
+    relcast_interval = 0.8       //  [0.4, 15] Default is 0.8     
+    summary_interval = 2.0       //  [1, 10] Default is 2         
+    wrap_length = 90             //  [1,inf] Default is 90        
+    trunc_length = 270           //  [1,inf] Default is 270       
+    msg_max_history = 10         //  [1,inf] Default is 10        
+
+    hist_var = VISIT_POINT  
+  } 
+
+// pGenPath Configuration Block       
+ProcessConfig = pGenPath                                     
+  {                                                               
+   AppTick   = 4                                                 
+   CommsTick = 4                                          
+  } 

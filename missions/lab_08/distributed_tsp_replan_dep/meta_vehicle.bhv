@@ -1,0 +1,164 @@
+//-----------------------------------------------
+// Helm Behavior file 
+
+initialize   DEPLOY  = true
+initialize   RETURN  = false
+initialize   STATION_KEEP = false
+initialize   LOITER  = true
+initialize   REFUEL_NEEDED_ALL = false
+initialize   ALL_POINTS_VISITED = false
+
+set MODE = ACTIVE {
+  DEPLOY = true
+} INACTIVE
+
+set MODE = STATION-KEEPING {
+  MODE = ACTIVE
+  STATION_KEEP = true
+}                       
+
+set MODE = RETURNING {
+  MODE = ACTIVE
+  RETURN = true
+} 
+
+set MODE = WAYPOINT {
+  MODE = ACTIVE
+  LOITER = true
+} 
+
+
+//----------------------------------------------
+// Behavior = BHV_Loiter
+// {
+//   name      = loiter
+//   pwt       = 100
+//   condition = MODE==LOITERING
+//   condition = REFUEL_NEEDED_ALL=false
+
+//    post_suffix = A
+//          speed = 1.2
+//      clockwise = false
+//         radius = 8.0
+//      nm_radius = 15.0
+//        polygon = radial::$(LOITER_POS), radius=20, pts=8, snap=1, label=$(VNAME)_LOITER
+
+//   visual_hints = nextpt_color=white, nextpt_lcolor=khaki
+//   visual_hints = edge_color=orange, vertex_color=white
+//   visual_hints = edge_size=1, vertex_size=2
+// }
+
+
+//----------------------------------------------
+Behavior = BHV_Waypoint
+{
+  name      = waypt_return
+  pwt       = 100
+  condition = MODE==RETURNING
+  endflag   = STATION_KEEP = true
+  endflag   = ALL_POINTS_VISITED = true
+  endflag   = GENPATH_REGENERATE = false
+  perpetual = true
+
+      speed = 1.2
+     radius = 3.0
+  nm_radius = 15.0
+     points = $(START_POS)
+       lead = 8
+}
+
+Behavior = BHV_Waypoint
+{
+  name      = waypt_refuel
+  pwt       = 100
+  condition = REFUEL_NEEDED_ALL=true
+  endflag   = STATION_KEEP = true
+  perpetual = true
+
+      speed = 1.2
+     radius = 3.0
+  nm_radius = 15.0
+     points = $(START_POS)
+       lead = 8
+}
+
+
+//----------------------------------------------
+Behavior = BHV_StationKeep
+{
+  name      = station-keep
+  pwt       = 100
+  condition = MODE==STATION-KEEPING
+
+   center_activate = true
+      inner_radius = 5
+      outer_radius = 10 
+       outer_speed = 1.0
+     transit_speed = 1.2
+        swing_time = 7
+      visual_hints = vertex_size=0, edge_color=gray50
+}
+
+Behavior = BHV_Timer
+ {
+   // General Behavior Parameters
+   // ---------------------------
+   name         = bhv_timer_refuel_return           // default
+   duration     = 60           // example
+   condition = STATION_KEEP = true
+   condition = REFUEL_NEEDED_ALL=true
+   perpetual = true
+   endflag = REFUEL_NEEDED_ALL = false
+   endflag = LOITER = true
+   endflag = STATION_KEEP = false
+   duration_idle_decay   = false
+ }
+
+ Behavior = BHV_Timer
+ {
+   // General Behavior Parameters
+   // ---------------------------
+   name         = bhv_timer_no_refuel_needed           // default
+   // condition    = WAIT_REQUEST=true    // example
+   duration     = 4000                 // 10 minute tour duration
+   condition = REFUEL_NEEDED_ALL = false
+   condition = STATION_KEEP = false
+   perpetual = true
+   endflag = REFUEL_NEEDED_ALL = true
+   //endflag = LOITER = true
+  //  endflag = SURF_RESET = true
+   duration_idle_decay   = false
+ }
+
+
+Behavior = BHV_Waypoint
+{
+  name      = tsp
+  pwt       = 100
+  condition = MODE==WAYPOINT
+  condition = REFUEL_NEEDED_ALL=false
+  perpetual = true
+  updates   = WPT_UPDATE
+  endflag   = GENPATH_REGENERATE = true
+
+  capture_radius = 0.1
+  capture_line = false
+  lead = 8
+  lead_damper = 15
+  lead_to_start = false
+  order = normal
+  points = start
+  post_suffix = HENRY
+  repeat = 0
+  slip_radius = 30
+  speed = 1.2
+  wptflag = HITPTS = $(X),$(Y)
+
+  visual_hints = vertex_size = 3
+  visual_hints = edge_size = 1
+  visual_hints = vertex_color = dodger_blue
+  visual_hints = edge_color = white
+  visual_hints = nextpt_color = yellow
+  visual_hints = nextpt_lcolor = aqua
+  visual_hints = nextpt_vertex_size = 5
+}
