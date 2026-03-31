@@ -6,7 +6,6 @@ initialize   RETURN  = false
 initialize   STATION_KEEP = false
 initialize   LOITER  = true
 initialize   REFUEL_NEEDED_ALL = false
-initialize   ALL_POINTS_VISITED = false
 
 set MODE = ACTIVE {
   DEPLOY = true
@@ -56,14 +55,12 @@ Behavior = BHV_Waypoint
   pwt       = 100
   condition = MODE==RETURNING
   endflag   = STATION_KEEP = true
-  endflag   = ALL_POINTS_VISITED = true
-  endflag   = GENPATH_REGENERATE = false
   perpetual = true
 
       speed = 1.2
      radius = 3.0
   nm_radius = 15.0
-     points = start
+     points = $(START_POS)
        lead = 8
 }
 
@@ -78,7 +75,7 @@ Behavior = BHV_Waypoint
       speed = 1.2
      radius = 3.0
   nm_radius = 15.0
-     points = start
+     points = $(START_POS)
        lead = 8
 }
 
@@ -104,7 +101,7 @@ Behavior = BHV_Timer
    // General Behavior Parameters
    // ---------------------------
    name         = bhv_timer_refuel_return           // default
-   duration     = 60           // example
+   duration     = 60                 // example
    condition = STATION_KEEP = true
    condition = REFUEL_NEEDED_ALL=true
    perpetual = true
@@ -120,7 +117,7 @@ Behavior = BHV_Timer
    // ---------------------------
    name         = bhv_timer_no_refuel_needed           // default
    // condition    = WAIT_REQUEST=true    // example
-   duration     = 4000                 // 10 minute tour duration
+   duration     = 100                 // 10 minute tour duration
    condition = REFUEL_NEEDED_ALL = false
    condition = STATION_KEEP = false
    perpetual = true
@@ -130,7 +127,6 @@ Behavior = BHV_Timer
    duration_idle_decay   = false
  }
 
-
 Behavior = BHV_Waypoint
 {
   name      = tsp
@@ -138,27 +134,29 @@ Behavior = BHV_Waypoint
   condition = MODE==WAYPOINT
   condition = REFUEL_NEEDED_ALL=false
   perpetual = true
-  updates   = WPT_UPDATE
-  endflag   = GENPATH_REGENERATE = true
+  updates = WPT_UPDATE
 
-  capture_radius = 0.1
-  capture_line = false
-  lead = 8
-  lead_damper = 15
-  lead_to_start = false
-  order = normal
-  points = start
-  post_suffix = HENRY
-  repeat = 0
-  slip_radius = 30
-  speed = 1.2
-  // wptflag = HITPTS = $(X),$(Y)
+// Parameters specific to this behavior
+// ------------------------------------
+  capture_radius = 3 // default
+    capture_line = false // default
+      lead = 8 // default
+        lead_damper = 15
+  lead_to_start = false // default
+          order = normal // default
+          //points = 48, -50 // start position
+          points = start //(waypoint behavior)
+  post_suffix = HENRY // example
+          repeat = 0 // default
+  slip_radius = 15 // default
+          speed = 1.2 // default is zero
+        wptflag = HITPTS = $(X),$(Y) // example
 
-  visual_hints = vertex_size = 3
-  visual_hints = edge_size = 1
-  visual_hints = vertex_color = dodger_blue
-  visual_hints = edge_color = white
-  visual_hints = nextpt_color = yellow
-  visual_hints = nextpt_lcolor = aqua
-  visual_hints = nextpt_vertex_size = 5
+visual_hints = vertex_size = 3 // default
+visual_hints = edge_size = 1 // default
+visual_hints = vertex_color = dodger_blue // default
+visual_hints = edge_color = white // default
+visual_hints = nextpt_color = yellow // default
+visual_hints = nextpt_lcolor = aqua // default
+visual_hints = nextpt_vertex_size = 5 // default
 }

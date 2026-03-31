@@ -1,5 +1,5 @@
 ServerHost = localhost
-ServerPort = $(MOOS_PORT)
+ServerPort = $(VPORT)
 
 // Community name IS the vehicle name
 Community  = $(VNAME)

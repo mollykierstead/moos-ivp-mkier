@@ -16,9 +16,9 @@ ProcessConfig = uFldNodeBroker
   bridge = src=NODE_MESSAGE_LOCAL, alias=NODE_MESSAGE
 
   #ifdef VNAME GILDA
-    bridge = src=READY_TO_RECEIVE, alias=VEHICLES_READY_GILDA
+    bridge = src=READY_TO_RECEIVE, alias=READY_TO_RECEIVE_GILDA
   #elseifdef VNAME HENRY
-    bridge = src=READY_TO_RECEIVE, alias=VEHICLES_READY_HENRY
+    bridge = src=READY_TO_RECEIVE, alias=READY_TO_RECEIVE_HENRY
   #endif
 
   // bridge = src =VISIT_POINT_HENRY, alias=VISIT_POINT
