@@ -7,7 +7,7 @@
 
 #ifndef PointAssign_HEADER
 #define PointAssign_HEADER
-
+#include <queue>
 #include "MOOS/libMOOS/Thirdparty/AppCasting/AppCastingMOOSApp.h"
 
 class PointAssign : public AppCastingMOOSApp

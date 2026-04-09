@@ -15,7 +15,10 @@ INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 #============================================================================
 # List the subdirectories to build...
 #============================================================================
-ADD_SUBDIRECTORY(lib_behaviors-test)
+ADD_SUBDIRECTORY(lib_BHV_Pulse)
+ADD_SUBDIRECTORY(lib_BHV_ZigLeg)
+ADD_SUBDIRECTORY(lib_BHV_SimpleWaypoint)
+ADD_SUBDIRECTORY(lib_BHV_Garb)
 ADD_SUBDIRECTORY(pExampleApp)
 ADD_SUBDIRECTORY(pXRelayTest)
 ADD_SUBDIRECTORY(pOdometry)
