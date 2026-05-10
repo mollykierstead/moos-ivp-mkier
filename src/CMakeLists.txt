@@ -18,14 +18,13 @@ INCLUDE_DIRECTORIES(${LOCAL_LIBRARY_DIRS})
 ADD_SUBDIRECTORY(lib_BHV_Pulse)
 ADD_SUBDIRECTORY(lib_BHV_ZigLeg)
 ADD_SUBDIRECTORY(lib_BHV_SimpleWaypoint)
-ADD_SUBDIRECTORY(lib_BHV_Garb)
+ADD_SUBDIRECTORY(lib_BHV_Scout)
 ADD_SUBDIRECTORY(pExampleApp)
 ADD_SUBDIRECTORY(pXRelayTest)
 ADD_SUBDIRECTORY(pOdometry)
 ADD_SUBDIRECTORY(pPointAssign)
 ADD_SUBDIRECTORY(pGenPath)
 ADD_SUBDIRECTORY(pGenRescue)
-ADD_SUBDIRECTORY(lib_bhv_scout)
 
 ##############################################################################
 #                           END of CMakeLists.txt

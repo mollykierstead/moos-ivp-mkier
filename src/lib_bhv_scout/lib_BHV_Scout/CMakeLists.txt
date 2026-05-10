@@ -17,10 +17,10 @@ endif (${WIN32})
 #--------------------------------------------------------
 #                                      BHV_Pulse
 #--------------------------------------------------------
-ADD_LIBRARY(BHV_Garb SHARED 
-  BHV_Garb.cpp)
+ADD_LIBRARY(BHV_Scout SHARED 
+  BHV_Scout.cpp)
   
-TARGET_LINK_LIBRARIES(BHV_Garb
+TARGET_LINK_LIBRARIES(BHV_Scout
 helmivp
 behaviors 
 ivpbuild 

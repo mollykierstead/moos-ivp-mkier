@@ -1,7 +1,7 @@
 /************************************************************/
 /*    NAME: dd                                              */
 /*    ORGN: MIT                                             */
-/*    FILE: BHV_Garb.h                                      */
+/*    FILE: BHV_Scout.h                                      */
 /*    DATE:                                                 */
 /************************************************************/
 
@@ -11,10 +11,10 @@
 #include <string>
 #include "IvPBehavior.h"
 
-class BHV_Garb : public IvPBehavior {
+class BHV_Scout : public IvPBehavior {
 public:
-  BHV_Garb(IvPDomain);
-  ~BHV_Garb() {};
+  BHV_Scout(IvPDomain);
+  ~BHV_Scout() {};
   
   bool         setParam(std::string, std::string);
   void         onSetParamComplete();
@@ -37,6 +37,6 @@ protected: // State variables
 
 extern "C" {
   IVP_EXPORT_FUNCTION IvPBehavior * createBehavior(std::string name, IvPDomain domain) 
-  {return new BHV_Garb(domain);}
+  {return new BHV_Scout(domain);}
 }
 #endif

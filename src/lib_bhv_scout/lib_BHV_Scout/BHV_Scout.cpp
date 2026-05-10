@@ -1,7 +1,7 @@
 /************************************************************/
 /*    NAME: dd                                              */
 /*    ORGN: MIT                                             */
-/*    FILE: BHV_Garb.cpp                                    */
+/*    FILE: BHV_Scout.cpp                                    */
 /*    DATE:                                                 */
 /************************************************************/
 
@@ -9,14 +9,14 @@
 #include <cstdlib>
 #include "MBUtils.h"
 #include "BuildUtils.h"
-#include "BHV_Garb.h"
+#include "BHV_Scout.h"
 
 using namespace std;
 
 //---------------------------------------------------------------
 // Constructor
 
-BHV_Garb::BHV_Garb(IvPDomain domain) :
+BHV_Scout::BHV_Scout(IvPDomain domain) :
   IvPBehavior(domain)
 {
   // Provide a default behavior name
@@ -32,7 +32,7 @@ BHV_Garb::BHV_Garb(IvPDomain domain) :
 //---------------------------------------------------------------
 // Procedure: setParam()
 
-bool BHV_Garb::setParam(string param, string val)
+bool BHV_Scout::setParam(string param, string val)
 {
   // Convert the parameter to lower case for more general matching
   param = tolower(param);
@@ -58,7 +58,7 @@ bool BHV_Garb::setParam(string param, string val)
 //            Good place to ensure all required params have are set.
 //            Or any inter-param relationships like a<b.
 
-void BHV_Garb::onSetParamComplete()
+void BHV_Scout::onSetParamComplete()
 {
 }
 
@@ -67,7 +67,7 @@ void BHV_Garb::onSetParamComplete()
 //   Purpose: Invoked once upon helm start, even if this behavior
 //            is a template and not spawned at startup
 
-void BHV_Garb::onHelmStart()
+void BHV_Scout::onHelmStart()
 {
 }
 
@@ -75,14 +75,14 @@ void BHV_Garb::onHelmStart()
 // Procedure: onIdleState()
 //   Purpose: Invoked on each helm iteration if conditions not met.
 
-void BHV_Garb::onIdleState()
+void BHV_Scout::onIdleState()
 {
 }
 
 //---------------------------------------------------------------
 // Procedure: onCompleteState()
 
-void BHV_Garb::onCompleteState()
+void BHV_Scout::onCompleteState()
 {
 }
 
@@ -90,7 +90,7 @@ void BHV_Garb::onCompleteState()
 // Procedure: postConfigStatus()
 //   Purpose: Invoked each time a param is dynamically changed
 
-void BHV_Garb::postConfigStatus()
+void BHV_Scout::postConfigStatus()
 {
 }
 
@@ -98,7 +98,7 @@ void BHV_Garb::postConfigStatus()
 // Procedure: onIdleToRunState()
 //   Purpose: Invoked once upon each transition from idle to run state
 
-void BHV_Garb::onIdleToRunState()
+void BHV_Scout::onIdleToRunState()
 {
 }
 
@@ -106,7 +106,7 @@ void BHV_Garb::onIdleToRunState()
 // Procedure: onRunToIdleState()
 //   Purpose: Invoked once upon each transition from run to idle state
 
-void BHV_Garb::onRunToIdleState()
+void BHV_Scout::onRunToIdleState()
 {
 }
 
@@ -114,7 +114,7 @@ void BHV_Garb::onRunToIdleState()
 // Procedure: onRunState()
 //   Purpose: Invoked each iteration when run conditions have been met.
 
-IvPFunction* BHV_Garb::onRunState()
+IvPFunction* BHV_Scout::onRunState()
 {
   // Part 1: Build the IvP function
   IvPFunction *ipf = 0;
